@@ -28,7 +28,7 @@ end
 
 # Configure narc
 template '/opt/gonano/etc/narc.conf' do
-  variables ({ uid: payload[:uid], app: "nanobox", logvac: payload[:logvac_uri] })
+  variables ({ uid: payload[:uid], app: "nanobox", logtap: payload[:logtap_uri] })
 end
 
 directory '/etc/service/narc'
