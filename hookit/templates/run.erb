@@ -11,5 +11,7 @@ if File.exist?('/data/etc/environment.d/nano-envs')
   end
 end
 -%>
-    
+<% if dependency -%>
+sv start <%= dependency %> || exit 1
+<% end -%>
 exec su - gonano -c '<%= exec %>'

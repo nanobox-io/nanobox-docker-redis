@@ -1,0 +1,8 @@
+port 26379
+daemonize yes
+logfile "/var/log/redis/sentinel.log"
+ 
+sentinel monitor gonano <%= master %> 6380 2
+sentinel down-after-milliseconds gonano 3100
+sentinel failover-timeout gonano 180000
+sentinel parallel-syncs gonano 1

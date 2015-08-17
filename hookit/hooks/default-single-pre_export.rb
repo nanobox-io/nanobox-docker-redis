@@ -5,14 +5,8 @@ end #unless payload[:clear_data] == "false"
 
 # issue save to the local redis
 # 'save' rather than 'bgsave' so it blocks
-if payload[:service][:topology] == 'redundant'
-  execute 'execute save' do
-    command '/data/bin/redis-cli -p 6380 save'
-  end
-else
-  execute 'execute save' do
-    command '/data/bin/redis-cli save'
-  end
+execute 'execute save' do
+  command '/data/bin/redis-cli save'
 end
 
 execute "send bulk data to new member" do

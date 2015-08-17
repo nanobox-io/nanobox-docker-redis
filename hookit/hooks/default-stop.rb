@@ -1,2 +1,19 @@
-# convert to 'runit' init-type hookit 'service'
-execute '/data/bin/redis-cli shutdown save && sv stop cache'
+
+execute '/data/bin/redis-cli shutdown save'
+
+service "cache" do
+  action :disable
+  init 'runit'
+end
+
+service "sentinel" do
+  action :disable
+  only_if { File.exist?('/etc/service/sentinel/run') }
+  init 'runit'
+end
+
+service "proxy" do
+  action :disable
+  only_if { File.exist?('/etc/service/proxy/run') }
+  init 'runit'
+end
