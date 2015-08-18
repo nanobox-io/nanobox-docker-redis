@@ -1,6 +1,4 @@
 
-include Hooky::Helper::XML
-
 ip        = `ifconfig eth0 | awk '/inet addr/ {print $2}' | cut -f2 -d':'`.to_s.strip
 master_ip = payload[:generation][:members].select { |mem| mem[:role] == 'primary'}[0][:local_ip]
 sentinel  = (payload[:generation][:members].select { |mem| mem[:role] == 'monitor'}[0][:local_ip] == ip) ? master_ip : '127.0.0.1'
