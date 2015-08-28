@@ -1,3 +1,4 @@
+
 if payload[:new_member][:schema][:meta][:disk].to_i < `du -s /datas | awk '{print $1}`.to_i
   puts "Receiving side too small!!"
   exit 1

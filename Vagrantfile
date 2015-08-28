@@ -24,9 +24,17 @@ Vagrant.configure(2) do |config|
 
   # Build image
   config.vm.provision "shell", inline: "docker build -t #{ENV['docker_user']}/redis /vagrant"
+  # build different versions (when we support them)
+  # config.vm.provision "shell", inline: "docker build -t #{ENV['docker_user']}/redis:2.6 -f Dockerfile-2_6 /vagrant"
+
+  # Tag built images
+  config.vm.provision "shell", inline: "docker tag #{ENV['docker_user']}/redis #{ENV['docker_user']}/redis:3.0"
+  config.vm.provision "shell", inline: "docker tag #{ENV['docker_user']}/redis #{ENV['docker_user']}/redis:3.0-stable"
 
   # Publish image to dockerhub
   config.vm.provision "shell", inline: "docker push #{ENV['docker_user']}/redis"
+  config.vm.provision "shell", inline: "docker push #{ENV['docker_user']}/redis:3.0"
+  config.vm.provision "shell", inline: "docker push #{ENV['docker_user']}/redis:3.0-stable"
 
   config.vm.provider "virtualbox" do |v|
     v.customize ["modifyvm", :id, "--memory", "768"]
