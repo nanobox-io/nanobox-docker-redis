@@ -22,19 +22,8 @@ Vagrant.configure(2) do |config|
   # Add docker credentials
   config.vm.provision "file", source: "~/.dockercfg", destination: "/root/.dockercfg"
 
-  # Build image
-  config.vm.provision "shell", inline: "docker build -t #{ENV['docker_user']}/redis /vagrant"
-  # build different versions (when we support them)
-  # config.vm.provision "shell", inline: "docker build -t #{ENV['docker_user']}/redis:2.6 -f Dockerfile-2_6 /vagrant"
-
-  # Tag built images
-  config.vm.provision "shell", inline: "docker tag #{ENV['docker_user']}/redis #{ENV['docker_user']}/redis:3.0"
-  config.vm.provision "shell", inline: "docker tag #{ENV['docker_user']}/redis #{ENV['docker_user']}/redis:3.0-stable"
-  config.vm.provision "shell", inline: "docker tag #{ENV['docker_user']}/redis #{ENV['docker_user']}/redis:3.0-beta"
-  config.vm.provision "shell", inline: "docker tag #{ENV['docker_user']}/redis #{ENV['docker_user']}/redis:3.0-alpha"
-
   config.vm.provider "virtualbox" do |v|
-    v.customize ["modifyvm", :id, "--memory", "768"]
+    v.customize ["modifyvm", :id, "--memory", "1024", "--ioapic", "on", "--cpus", "2"]
   end
 
 end
