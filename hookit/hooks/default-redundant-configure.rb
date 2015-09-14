@@ -1,7 +1,7 @@
 include Hooky::Redis
 
 # Setup
-boxfile = converge( Hooky::Redis::BOXFILE_DEFAULTS, payload[:boxfile] ) 
+boxfile = converge( Hooky::Redis::BOXFILE_DEFAULTS, payload[:boxfile] )
 
 # set redis config
 ip        = `ifconfig eth0 | awk '/inet addr/ {print $2}' | cut -f2 -d':'`.to_s.strip

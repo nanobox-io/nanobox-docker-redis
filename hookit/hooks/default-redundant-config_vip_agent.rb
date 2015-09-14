@@ -4,7 +4,7 @@ directory '/data/etc/flip'
 # set flip.conf
 template '/data/etc/flip/flip.conf' do
   mode 0644
-  variables ({ 
+  variables ({
     payload: payload
   })
 end
@@ -20,7 +20,7 @@ template '/etc/service/flip/run' do
   variables ({ exec: "/data/flip/flipd /data/etc/flip/flip.conf 2>&1" })
 end
 
-execute 'multicast route' do 
+execute 'multicast route' do
   command 'route add -net 224.0.0.0/3 dev eth0 || true'
 end
 

@@ -32,8 +32,8 @@ end
 # Narc Setup
 template '/opt/local/etc/narc/narc.conf' do
   source 'monitor-narc.conf.erb'
-  variables ({ 
-    service: payload[:service], 
+  variables ({
+    service: payload[:service],
     app: payload[:app]
   })
 end
