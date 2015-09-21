@@ -16,10 +16,10 @@ Requirements
 Usage
 -----
 
-To create and publish the image to nanobox/redis simply run      
-`make` or `vagrant up && vagrant destroy -f`    
+To create the image `nanobox/redis` simply run      
+`make` or `make image` followed by `make tag`    
 If the creation/publication fails for any reason, you may       
-modify the proper files and run `make publish` or `vagrant provision`    
+modify the proper files and run `make image`.    
         
 To login to the zone:
 ```
@@ -27,10 +27,6 @@ user: gonano
 pass: gonano
 ```
         
-TIP: If you forget to create a `docker_user` environment variable,      
-you can `vagrant ssh` and run `docker tag nanobox/redis ${YOUR_USER}/redis`      
-then push with `docker push ${YOUR_USER}/redis`   
-
 
 License
 -------

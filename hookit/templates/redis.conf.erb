@@ -1,0 +1,62 @@
+# -*- mode: apacheconf; -*-
+daemonize no
+pidfile /var/run/redis.pid
+port 6379
+# bind 127.0.0.1
+timeout 0
+tcp-keepalive <%= boxfile[:redis_tcp_keepalive] %>
+loglevel notice
+# syslog-enabled no
+# syslog-ident redis
+# syslog-facility local0
+databases <%= boxfile[:redis_databases] %>
+save 900 1
+save 300 10
+save 60 10000
+
+stop-writes-on-bgsave-error <%= boxfile[:redis_stop_writes_on_bgsave_error] %>
+rdbcompression yes
+rdbchecksum yes
+dbfilename dump.rdb
+dir /datas
+
+slave-serve-stale-data <%= boxfile[:redis_slave_serve_stale_data] %>
+slave-read-only <%= boxfile[:redis_slave_read_only] %>
+repl-ping-slave-period <%= boxfile[:redis_repl_ping_slave_period] %>
+repl-timeout <%= boxfile[:redis_repl_timeout] %>
+repl-disable-tcp-nodelay <%= boxfile[:redis_repl_disable_tcp_nodelay] %>
+
+maxclients <%= boxfile[:redis_max_clients] %>
+maxmemory <%= maxmemory %>m
+maxmemory-policy <%= boxfile[:redis_maxmemory_policy] %>
+maxmemory-samples <%= boxfile[:redis_maxmemory_samples] %>
+appendonly no
+appendfilename appendonly.aof
+appendfsync <%= boxfile[:redis_appendfsync] %>
+no-appendfsync-on-rewrite <%= boxfile[:redis_no_appendfsync_on_rewrite] %>
+auto-aof-rewrite-percentage <%= boxfile[:redis_auto_aof_rewrite_percentage] %>
+auto-aof-rewrite-min-size <%= boxfile[:redis_auto_aof_rewrite_min_size] %>
+lua-time-limit <%= boxfile[:redis_lua_time_limit] %>
+slowlog-log-slower-than <%= boxfile[:redis_slowlog_log_slower_than] %>
+slowlog-max-len <%= boxfile[:redis_slowlog_max_len] %>
+
+hash-max-ziplist-entries <%= boxfile[:redis_hash_max_ziplist_entries] %>
+hash-max-ziplist-value <%= boxfile[:redis_hash_max_ziplist_value] %>
+
+list-max-ziplist-entries <%= boxfile[:redis_list_max_ziplist_entries] %>
+list-max-ziplist-value <%= boxfile[:redis_list_max_ziplist_value] %>
+
+set-max-intset-entries <%= boxfile[:redis_set_max_intset_entries] %>
+
+zset-max-ziplist-entries <%= boxfile[:redis_zset_max_ziplist_entries] %>
+zset-max-ziplist-value <%= boxfile[:redis_zset_max_ziplist_value] %>
+
+activerehashing <%= boxfile[:redis_activerehashing] %>
+
+client-output-buffer-limit normal 0 0 0
+client-output-buffer-limit slave 256mb 64mb 60
+client-output-buffer-limit pubsub 32mb 8mb 60
+
+hz <%= boxfile[:redis_hz] %>
+
+aof-rewrite-incremental-fsync <%= boxfile[:redis_aof_rewrite_incremental_fsync] %>
