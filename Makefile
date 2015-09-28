@@ -1,43 +1,30 @@
-all: image tag
+# -*- mode: make; tab-width: 4; -*-
+# vim: ts=4 sw=4 ft=make noet
+all: build publish
 
-image:
-	@vagrant up
-	@vagrant ssh -c "sudo docker build -t nanobox/redis /vagrant"
+LATEST:=3.0
+stability?=latest
+version?=$(LATEST)
+dockerfile?=Dockerfile-$(version)
 
-tag:
-	@vagrant ssh -c "sudo docker tag -f nanobox/redis nanobox/redis:3.0"
-	@vagrant ssh -c "sudo docker tag -f nanobox/redis nanobox/redis:3.0-stable"
-	@vagrant ssh -c "sudo docker tag -f nanobox/redis nanobox/redis:3.0-beta"
-	@vagrant ssh -c "sudo docker tag -f nanobox/redis nanobox/redis:3.0-alpha"
-	@vagrant ssh -c "sudo docker tag -f nanobox/redis nanobox/redis:stable"
-	@vagrant ssh -c "sudo docker tag -f nanobox/redis nanobox/redis:beta"
-	@vagrant ssh -c "sudo docker tag -f nanobox/redis nanobox/redis:alpha"
+login:
+	@vagrant ssh -c "docker login"
 
-# image28:
-# 	vagrant up
-# 	vagrant ssh -c "sudo docker build -t nanobox/redis:2.8 -f Dockerfile_28 /vagrant"
-# tag28:
-# 	vagrant ssh -c "sudo docker tag -f nanobox/redis:2.8 nanobox/redis:2.8-stable"
-# 	vagrant ssh -c "sudo docker tag -f nanobox/redis:2.8 nanobox/redis:2.8-beta"
-# 	vagrant ssh -c "sudo docker tag -f nanobox/redis:2.8 nanobox/redis:2.8-alpha"
+build:
+	@echo "Building 'redis' image..."
+	@vagrant ssh -c "docker build -f /vagrant/Dockerfile-${version} -t nanobox/redis /vagrant"
 
-# all: image tag image28 tag28
-
-publish: push_30_stable
-
-push_30_stable: push_30_beta
-	@vagrant ssh -c "sudo docker push nanobox/redis"
-	@vagrant ssh -c "sudo docker push nanobox/redis:3.0"
-	@vagrant ssh -c "sudo docker push nanobox/redis:3.0-stable"
-	@vagrant ssh -c "sudo docker push nanobox/redis:stable"
-
-push_30_beta: push_30_alpha
-	@vagrant ssh -c "sudo docker push nanobox/redis:3.0-beta"
-	@vagrant ssh -c "sudo docker push nanobox/redis:beta"
-
-push_30_alpha:
-	@vagrant ssh -c "sudo docker push nanobox/redis:3.0-alpha"
-	@vagrant ssh -c "sudo docker push nanobox/redis:alpha"
+publish:
+	@echo "Tagging 'redis:${version}-${stability}' image..."
+	@vagrant ssh -c "docker tag -f nanobox/redis nanobox/redis:${version}-${stability}"
+	@echo "Publishing 'redis:${version}-${stability}'..."
+	@vagrant ssh -c "docker push nanobox/redis:${version}-${stability}"
+ifeq ($(version),$(LATEST))
+	@echo "Publishing 'redis:${stability}'..."
+	@vagrant ssh -c "docker tag -f nanobox/redis nanobox/redis:${stability}"
+	@vagrant ssh -c "docker push nanobox/redis:${stability}"
+endif
 
 clean:
-	@vagrant destroy -f
+	@echo "Removing all images..."
+	@vagrant ssh -c "for image in \$$(docker images -q); do docker rmi -f \$$image; done"
