@@ -8,12 +8,13 @@ ip        = `ifconfig eth0 | awk '/inet addr/ {print $2}' | cut -f2 -d':'`.to_s.
 master_ip = payload[:generation][:members].select { |mem| mem[:role] == 'primary'}[0][:local_ip]
 master    = (master_ip == ip) ? false : master_ip
 sentinel  = (payload[:generation][:members].select { |mem| mem[:role] == 'monitor'}[0][:local_ip] == ip) ? master_ip : '127.0.0.1'
+maxmemory = payload[:member][:schema][:meta][:ram].to_i / 1024 / 1024
 
 # configure redis for redundancy
 template '/data/etc/redis/redis.conf' do
   source 'redis-redundant.conf.erb'
   mode 0644
-  variables ({ boxfile: boxfile , slaveof: master})
+  variables ({ boxfile: boxfile , slaveof: master, maxmemory: maxmemory})
   owner 'gonano'
   group 'gonano'
 end

@@ -30,7 +30,7 @@ end
 template '/data/etc/redis.conf' do
   mode 0755
   source 'redis.conf.erb'
-  variables ({ boxfile: boxfile, memory: maxmemory })
+  variables ({ boxfile: boxfile, maxmemory: maxmemory })
 end
 
 template '/etc/service/cache/log/run' do
