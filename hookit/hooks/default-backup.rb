@@ -14,14 +14,14 @@ end
 # TODO: assuming we can scp backups to a backup container
 execute "send data to backup container" do
   command <<-EOF
-    gzip -c /datas/dump.rdb \
+    gzip -c /data/var/db/redis/dump.rdb \
       | tee >(md5sum | cut -f1 -d" " > /tmp/md5sum) \
       | ssh #{payload[:backup][:local_ip]} \
-      > /datas/#{payload[:backup][:backup_id]}.gz
+      > /data/var/db/redis/#{payload[:backup][:backup_id]}.gz
   EOF
 end
 
-remote_sum = `ssh #{payload[:backup][:local_ip]} "md5sum /datas/#{payload[:backup][:backup_id]}.gz | awk \'{print $1}\'"`.to_s.strip
+remote_sum = `ssh #{payload[:backup][:local_ip]} "md5sum /data/var/db/redis/#{payload[:backup][:backup_id]}.gz | awk \'{print $1}\'"`.to_s.strip
 
 # Read POST results
 local_sum = File.open('/tmp/md5sum') {|f| f.readline}.strip

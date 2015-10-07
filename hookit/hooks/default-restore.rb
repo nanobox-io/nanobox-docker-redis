@@ -2,7 +2,7 @@
 execute "retrieve data from backup container" do
   command <<-EOF
     ssh #{payload[:backup][:local_ip]} \
-    'cat /datas/#{payload[:backup][:backup_id]}.gz' \
+    'cat /data/var/db/redis/#{payload[:backup][:backup_id]}.gz' \
       | gunzip \
       > /dump.rdb.tmp
   EOF
@@ -10,7 +10,7 @@ end
 
 # forced 'appendonly no'
 execute 'clean data dir from failed saves' do
-  command 'rm -rf /datas/temp*.rdb'
+  command 'rm -rf /data/var/db/redis/temp*.rdb'
 end
 
 execute 'flush redis' do

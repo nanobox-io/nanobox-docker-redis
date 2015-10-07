@@ -7,6 +7,6 @@ sleep 2
 redis-cli set test success
 redis-cli get test
 redis-cli save
-ls /datas/dump.rdb
+ls /data/var/db/redis/dump.rdb
 exit
 docker kill redis-test

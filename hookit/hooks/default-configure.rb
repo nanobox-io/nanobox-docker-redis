@@ -2,7 +2,9 @@ include Hooky::Redis
 
 boxfile = converge( Hooky::Redis::BOXFILE_DEFAULTS, payload[:boxfile] )
 
-directory '/datas'
+directory '/data/var/db/redis' do
+  recursive true
+end
 
 if payload[:platform] == 'local'
   maxmemory = 128
@@ -12,9 +14,9 @@ else
   appname   = payload[:app]
 end
 
-# chown datas for gonano
-execute 'chown /datas' do
-  command 'chown -R gonano:gonano /datas'
+# chown data/var/db/redis for gonano
+execute 'chown /data/var/db/redis' do
+  command 'chown -R gonano:gonano /data/var/db/redis'
 end
 
 # Import service (and start)

@@ -18,7 +18,7 @@ stop-writes-on-bgsave-error <%= boxfile[:redis_stop_writes_on_bgsave_error] %>
 rdbcompression yes
 rdbchecksum yes
 dbfilename dump.rdb
-dir /datas
+dir /data/var/db/redis
 
 slave-serve-stale-data <%= boxfile[:redis_slave_serve_stale_data] %>
 slave-read-only <%= boxfile[:redis_slave_read_only] %>
