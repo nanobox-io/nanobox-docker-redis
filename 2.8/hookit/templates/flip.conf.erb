@@ -1,0 +1,21 @@
+{
+    "id" : "<%= payload[:member][:role] %>"
+    ,"quorum" : 2
+    ,"gossip_interval" : 1000
+    ,"key" : "<%= payload[:service][:id] %>"
+    ,"ping_per_interval" : 3
+    ,"ping_timeout" : 1500
+    ,"servers" :
+        {"primary"   : {"ip" : "<%= payload[:generation][:members].select { |mem| mem[:role] == 'primary'}[0][:local_ip]   %>","port" : 1427, "systems": ["ip"], "priority": 1}
+        ,"secondary" : {"ip" : "<%= payload[:generation][:members].select { |mem| mem[:role] == 'secondary'}[0][:local_ip] %>","port" : 1427, "systems": ["ip"]}
+        ,"monitor"   : {"ip" : "<%= payload[:generation][:members].select { |mem| mem[:role] == 'monitor'}[0][:local_ip]   %>","port" : 1427}}
+    ,"cluster" :
+        {"config": {}
+        ,"system":
+            {"ip":
+                {"alive" : "/data/flip/scripts/ip_up.sh"
+                ,"down" : "/data/flip/scripts/ip_down.sh"
+                ,"type" : "shard"
+                ,"config" : {"interface" : "net2"}
+                ,"data" : ["<%= payload[:service][:ips][:default] %>"]}}}
+}
