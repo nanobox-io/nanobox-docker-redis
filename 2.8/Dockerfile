@@ -16,6 +16,7 @@ RUN rm -rf /data/var/db/pkgin && \
         luvit-0.10.0 \
         flip \
         flip-scripts \
+        py27-rdbtools \
         redundis \
         redis-2.8 && \
     rm -rf /data/var/db/pkgin/cache
