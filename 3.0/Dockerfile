@@ -6,7 +6,6 @@ FROM nanobox/runit
 RUN mkdir -p /var/log/gonano
 
 # Copy files
-ADD hookit/. /opt/gonano/hookit/mod/
 ADD files/. /
 
 # Install binaries
@@ -24,8 +23,22 @@ RUN rm -rf /data/var/db/pkgin && \
 RUN rm -rf /var/gonano/db/pkgin && \
     /opt/gonano/bin/pkgin -y up && \
     /opt/gonano/bin/pkgin -y in \
+        jq \
         rsync && \
     rm -rf /var/gonano/db/pkgin/cache
+
+# Install hooks
+RUN mkdir -p /opt/nanobox/hooks && \
+    curl \
+      -f \
+      -k \
+      https://s3.amazonaws.com/tools.nanobox.io/hooks/redis-stable.tgz \
+        | tar -xz -C /opt/nanobox/hooks && \
+    curl \
+      -f \
+      -k \
+      -o /opt/nanobox/redis-stable.md5 \
+      https://s3.amazonaws.com/tools.nanobox.io/hooks/redis-stable.md5
 
 # Cleanup disk
 RUN rm -rf \
