@@ -53,7 +53,7 @@ data.redis:
     tcp_keepalive: 60
     databases: 16
     stop_writes_on_bgsave_error: 'yes'
-    slave_serve_stale_data.redis: 'yes'
+    slave_serve_stale_data: 'yes'
     slave_read_only: 'yes'
     repl_ping_slave_period: 10
     repl_timeout: 60
@@ -156,7 +156,7 @@ When a slave loses its connection with the master, or when the replication is st
 data.redis:
   image: nanobox/redis
   config:
-    slave_serve_stale_data.redis: 'yes'
+    slave_serve_stale_data: 'yes'
 ```
 
 ### Slave Read-Only
