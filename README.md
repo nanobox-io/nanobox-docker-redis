@@ -3,7 +3,7 @@
 This is an Redis Docker image used to launch a Redis service on Nanobox. To use this image, add a data component to your `boxfile.yml` with the `nanobox/redis` image specified:
 
 ```yaml
-data:
+data.redis:
   image: nanobox/redis
 ```
 
@@ -46,7 +46,7 @@ Advanced Configs
 
 #### Overview of Redis boxfile.yml Settings
 ```yaml
-data:
+data.redis:
   image: nanobox/redis
   config:
     version: 2.8
@@ -94,7 +94,7 @@ When configuring a Redis service in your Boxfile, can specify which version of R
 #### version
 ```yaml
 # default setting
-data:
+data.redis:
   image: nanobox/redis
   config:
     version: 3.0
@@ -109,7 +109,7 @@ If non-zero, use SO_KEEPALIVE to send TCP ACKs to clients in absence of communic
 #### tcp\_keepalive
 ```yaml
 # default setting
-data:
+data.redis:
   image: nanobox/redis
   config:
     tcp_keepalive: 60
@@ -121,7 +121,7 @@ Sets the number of databases.
 #### databases
 ```yaml
 # default setting
-data:
+data.redis:
   image: nanobox/redis
   config:
     databases: 16
@@ -137,7 +137,7 @@ However if you have setup your proper monitoring of the Redis server and persist
 #### stop\_writes\_on\_bgsave\_error
 ```yaml
 # default setting
-data:
+data.redis:
   image: nanobox/redis
   config:
     stop_writes_on_bgsave_error: 'yes'
@@ -153,7 +153,7 @@ When a slave loses its connection with the master, or when the replication is st
 #### slave\_serve\_stale\_data
 ```yaml
 # default setting
-data:
+data.redis:
   image: nanobox/redis
   config:
     slave_serve_stale_data: 'yes'
@@ -165,7 +165,7 @@ You can configure a slave instance to accept writes or not. Writing against a sl
 #### slave\_read\_only
 ```yaml
 # default setting
-data:
+data.redis:
   image: nanobox/redis
   config:
     slave_read_only: 'yes'
@@ -177,7 +177,7 @@ Slaves send PINGs to server in a predefined interval. It's possible to change th
 #### repl\_ping\_slave\_period
 ```yaml
 # default setting
-data:
+data.redis:
   image: nanobox/redis
   config:
     repl_ping_slave_period: 10
@@ -189,7 +189,7 @@ The following option sets a timeout for both Bulk transfer I/O timeout and maste
 #### repl\_timeout
 ```yaml
 # default setting
-data:
+data.redis:
   image: nanobox/redis
   config:
     repl_timeout: 60
@@ -201,7 +201,7 @@ Toggles TCP_NODELAY on the slave socket after SYNC. If you select "yes" Redis wi
 #### repl\_disable\_tcp\_nodelay
 ```yaml
 # default setting
-data:
+data.redis:
   image: nanobox/redis
   config:
     repl_disable_tcp_nodelay: 'no'
@@ -213,7 +213,7 @@ Set the max number of clients connected at the same time. Once the limit is reac
 #### max\_clients
 ```yaml
 # default setting
-data:
+data.redis:
   image: nanobox/redis
   config:
     max_clients: 1024
@@ -232,7 +232,7 @@ Defines how Redis will select what to remove when maxmemory is reached. You can 
 #### maxmemory\_policy
 ```yaml
 # default setting
-data:
+data.redis:
   image: nanobox/redis
   config:
     maxmemory_policy: 'volatile-lru'
@@ -244,7 +244,7 @@ LRU and minimal TTL algorithms are not precise algorithms but approximated algor
 #### maxmemory\_samples
 ```yaml
 # default setting
-data:
+data.redis:
   image: nanobox/redis
   config:
     maxmemory_samples: 3
@@ -261,7 +261,7 @@ AOF and RDB persistence can be enabled at the same time without problems. If the
 #### appendonly
 ```yaml
 # default setting
-data:
+data.redis:
   image: nanobox/redis
   config:
     appendonly: 'no'
@@ -283,7 +283,7 @@ If unsure, use "everysec".
 #### appendfsync
 ```yaml
 # default setting
-data:
+data.redis:
   image: nanobox/redis
   config:
     appendfsync: 'everysec'
@@ -301,7 +301,7 @@ If you have latency problems turn this to "yes". Otherwise leave it as "no" that
 #### no\_appendfsync\_on\_rewrite
 ```yaml
 # default setting
-data:
+data.redis:
   image: nanobox/redis
   config:
     no_appendfsync_on_rewrite: 'no'
@@ -315,7 +315,7 @@ Specify a percentage of zero in order to disable the automatic AOF rewrite featu
 #### auto\_aof\_rewrite\_percentage
 ```yaml
 # default setting
-data:
+data.redis:
   image: nanobox/redis
   config:
     auto_aof_rewrite_percentage: 100
@@ -327,7 +327,7 @@ Specifies the minimal size for the AOF file to be rewritten.
 #### auto\_aof\_rewrite\_min\_size
 ```yaml
 # default setting
-data:
+data.redis:
   image: nanobox/redis
   config:
     auto_aof_rewrite_min_size: '64m'
@@ -345,7 +345,7 @@ Set it to 0 or a negative value for unlimited execution without warnings.
 #### lua\_time\_limit
 ```yaml
 # default setting
-data:
+data.redis:
   image: nanobox/redis
   config:
     lua_time_limit: 5000
@@ -357,7 +357,7 @@ This tells Redis what is the execution time, in microseconds, to exceed in order
 #### slowlog\_log\_slower\_than
 ```yaml
 # default setting
-data:
+data.redis:
   image: nanobox/redis
   config:
     slowlog_log_slower_than:
@@ -369,7 +369,7 @@ This parameter sets the length of the slow log. When a new command is logged the
 #### slowlog\_max\_len
 ```yaml
 # default setting
-data:
+data.redis:
   image: nanobox/redis
   config:
     slowlog_max_len: 128
@@ -383,7 +383,7 @@ Sets the max number of hash entries before they are encrypted to save space.
 #### hash\_max\_ziplist\_entries
 ```yaml
 # default setting
-data:
+data.redis:
   image: nanobox/redis
   config:
     hash_max_ziplist_entries: 512
@@ -395,7 +395,7 @@ Sets the max value of hash entries before they are encrypted to save space.
 #### hash\_max\_ziplist\_value
 ```yaml
 # default setting
-data:
+data.redis:
   image: nanobox/redis
   config:
     hash_max_ziplist_value: 64
@@ -407,7 +407,7 @@ Sets the max number of list entries before they are encrypted to save space.
 #### list\_max\_ziplist\_entrie
 ```yaml
 # default setting
-data:
+data.redis:
   image: nanobox/redis
   config:
     list_max_ziplist_entries: 512
@@ -419,7 +419,7 @@ Sets the max value of list entries before they are encrypted to save space.
 #### list\_max\_ziplist\_value
 ```yaml
 # default settings
-data:
+data.redis:
   image: nanobox/redis
   config:
     list_max_ziplist_value: 64
@@ -431,7 +431,7 @@ Sets have a special encoding in just one case: when a set is composed of just st
 #### set\_max\_intset\_entries
 ```yaml
 # default setting
-data:
+data.redis:
   image: nanobox/redis
   config:
     set_max_intset_entries: 512
@@ -443,7 +443,7 @@ Sets the maximum number of entries before a sorted set is encoded to save space.
 #### zset\_max\_ziplist\_entries
 ```yaml
 # default setting
-data:
+data.redis:
   image: nanobox/redis
   config:
     zset_max_ziplist_entries: 12    
@@ -455,7 +455,7 @@ Sets the maximum value of entries before a sorted set is encoded to save space.
 #### zset\_max\_ziplist\_value
 ```yaml
 # default setting
-data:
+data.redis:
   image: nanobox/redis
   config:
     zset_max_ziplist_value: 64
@@ -473,7 +473,7 @@ Use `activerehashing: 'yes'` if you don't have such hard requirements but want t
 #### activerehashing
 ```yaml
 # default setting
-data:
+data.redis:
   image: nanobox/redis
   config:
     activerehashing: 'yes'
@@ -489,7 +489,7 @@ The range is between 1 and 500, however a value over 100 is usually not a good i
 #### hz
 ```yaml
 # default setting
-data:
+data.redis:
   image: nanobox/redis
   config:
     hz: 10
@@ -501,7 +501,7 @@ When a child rewrites the AOF file, if the following option is enabled the file 
 #### aof\_rewrite\_incremental\_fsync
 ```yaml
 # default setting
-data:
+data.redis:
   image: nanobox/redis
   config:
     aof_rewrite_incremental_fsync: 'yes'
