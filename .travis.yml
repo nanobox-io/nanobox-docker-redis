@@ -11,3 +11,24 @@ before_install:
   - docker build -t nanobox/redis:$VERSION ./$VERSION
 
 script: sudo test/run_all.sh $VERSION
+
+after_success:
+  - export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH; else echo $TRAVIS_PULL_REQUEST_BRANCH; fi)
+  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+  - docker build -t ${NAMESPACE}/redis ./${VERSION}
+  - docker tag ${NAMESPACE}/redis ${NAMESPACE}/redis:${VERSION}-beta;
+  - docker push ${REMOTE}${NAMESPACE}/redis:${VERSION}-beta;
+  - if [ "$VERSION" == "3.0" ]; then
+    docker tag ${NAMESPACE}/redis ${NAMESPACE}/redis:beta;
+    docker push ${REMOTE}${NAMESPACE}/redis;
+    fi
+  - if [ "$BRANCH" == "master" ]; then
+    if [ "$VERSION" == "3.0" ]; then
+    docker push ${REMOTE}${NAMESPACE}/redis;
+    fi
+    docker tag ${NAMESPACE}/redis ${NAMESPACE}/redis:${VERSION};
+    docker push ${REMOTE}${NAMESPACE}/redis:${VERSION};
+    else
+    docker tag ${NAMESPACE}/redis ${NAMESPACE}/redis:${VERSION}-${BRANCH//\//_};
+    docker push ${REMOTE}${NAMESPACE}/redis:${VERSION}-${BRANCH//\//_};
+    fi
