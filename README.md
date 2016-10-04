@@ -1,4 +1,4 @@
-# Redis ![Build Status Image](https://travis-ci.org/nanobox-io/nanobox-docker-redis.svg)
+# Redis [![Build Status Image](https://travis-ci.org/nanobox-io/nanobox-docker-redis.svg)](https://travis-ci.org/nanobox-io/nanobox-docker-redis)
 
 This is an Redis Docker image used to launch a Redis service on Nanobox. To use this image, add a data component to your `boxfile.yml` with the `nanobox/redis` image specified:
 
