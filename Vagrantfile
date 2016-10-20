@@ -43,9 +43,11 @@ Vagrant.configure(2) do |config|
     echo "Building docker image..."
     cd /vagrant
     docker build -t nanobox/redis:2.8 --no-cache=true 2.8
-    docker tag -f nanobox/redis:2.8 nanobox/redis:2.8
-      docker build -t nanobox/redis:3.0 --no-cache=true 3.0
-    docker tag -f nanobox/redis:3.0 nanobox/redis:3.0
+    docker tag nanobox/redis:2.8 nanobox/redis:2.8
+    docker build -t nanobox/redis:3.0 --no-cache=true 3.0
+    docker tag nanobox/redis:3.0 nanobox/redis:3.0
+    docker build -t nanobox/redis:3.2 --no-cache=true 3.2
+    docker tag nanobox/redis:3.2 nanobox/redis:3.2
   SCRIPT
 
 end
