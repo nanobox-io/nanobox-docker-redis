@@ -30,6 +30,8 @@ RUN rm -rf /var/gonano/db/pkgin && \
         rsync && \
     rm -rf /var/gonano/db/pkgin/cache
 
+RUN /opt/gonano/bin/gem install remote_syslog_logger
+
 # Install hooks
 RUN mkdir -p /opt/nanobox/hooks && \
     mkdir -p /var/nanobox && \
