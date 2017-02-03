@@ -7,7 +7,7 @@ RUN mkdir -p /var/log/gonano
 
 # Install arping
 RUN apt-get update -qq && \
-    apt-get install -y iputils-arping && \
+    apt-get install -y iputils-arping cron && \
     apt-get clean all && \
     rm -rf /var/lib/apt/lists/*
 
