@@ -85,9 +85,10 @@ data.redis:
 ### Version
 When configuring a Redis service in your Boxfile, can specify which version of Redis to use. The following version(s) are available:
 
-- 2.6
 - 2.8
 - 3.0
+- 3.2
+- 4.0
 
 **Note:** Due to version compatibility constraints, Redis versions cannot be changed after the service is created. To use a different version, you'll have to create a new Redis service.
 

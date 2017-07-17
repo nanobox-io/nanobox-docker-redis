@@ -48,6 +48,8 @@ Vagrant.configure(2) do |config|
     docker tag nanobox/redis:3.0 nanobox/redis:3.0
     docker build -t nanobox/redis:3.2 --no-cache=true 3.2
     docker tag nanobox/redis:3.2 nanobox/redis:3.2
+    docker build -t nanobox/redis:4.0 --no-cache=true 4.0
+    docker tag nanobox/redis:4.0 nanobox/redis:4.0
   SCRIPT
 
 end
