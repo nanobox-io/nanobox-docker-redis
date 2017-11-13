@@ -16,7 +16,7 @@ USER gonano
 # Install binaries
 RUN rm -rf /data/var/db/pkgin && \
     /data/bin/pkgin -y up && \
-    /data/bin/pkgin -y in \
+    /data/bin/pkgin -yV in \
         luvit-0.10.0 \
         flip \
         flip-scripts \
@@ -29,7 +29,7 @@ USER root
 
 RUN rm -rf /var/gonano/db/pkgin && \
     /opt/gonano/bin/pkgin -y up && \
-    /opt/gonano/bin/pkgin -y in \
+    /opt/gonano/bin/pkgin -yV in \
         jq \
         rsync && \
     rm -rf /var/gonano/db/pkgin/cache
