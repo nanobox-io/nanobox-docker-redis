@@ -17,11 +17,7 @@ USER gonano
 RUN rm -rf /data/var/db/pkgin && \
     /data/bin/pkgin -y up && \
     /data/bin/pkgin -y in \
-        luvit-0.10.0 \
-        flip \
-        flip-scripts \
         py27-rdbtools \
-        redundis \
         redis-4.0 && \
     rm -rf /data/var/db/pkgin/cache
 
