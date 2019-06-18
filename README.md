@@ -4,7 +4,7 @@ This is an Redis Docker image used to launch a Redis service on Nanobox. To use 
 
 ```yaml
 data.redis:
-  image: nanobox/redis
+  image: nanobox/redis:2.8
 ```
 
 ## Redis Configuration Options
@@ -47,9 +47,8 @@ Advanced Configs
 #### Overview of Redis boxfile.yml Settings
 ```yaml
 data.redis:
-  image: nanobox/redis
+  image: nanobox/redis:2.8
   config:
-    version: 2.8
     tcp_keepalive: 60
     databases: 16
     stop_writes_on_bgsave_error: 'yes'
@@ -96,9 +95,7 @@ When configuring a Redis service in your Boxfile, can specify which version of R
 ```yaml
 # default setting
 data.redis:
-  image: nanobox/redis
-  config:
-    version: 3.0
+  image: nanobox/redis:2.8
 ```
 
 ### TCP Keepalive
